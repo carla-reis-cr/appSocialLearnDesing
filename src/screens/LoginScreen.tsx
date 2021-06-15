@@ -4,17 +4,14 @@ import Background from '../components/Background';
 import Logo from '../components/Logo';
 import Header from '../components/Header';
 import Button from '../components/Button';
-import TextInput from '../components/TextInput';
+import TextInputPP from '../components/TextInput';
+import { TextInput } from 'react-native-paper';
 import BackButton from '../components/BackButton';
 import { theme } from '../core/theme';
 import { emailValidator, passwordValidator } from '../core/utils';
 import { Navigation } from '../types';
 
-type Props = {
-  navigation: Navigation;
-};
-
-const LoginScreen = ({ navigation }: Props) => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState({ value: '', error: '' });
   const [password, setPassword] = useState({ value: '', error: '' });
 
@@ -28,7 +25,10 @@ const LoginScreen = ({ navigation }: Props) => {
       return;
     }
 
-    navigation.navigate('Dashboard');
+    navigation.reset({
+      index:0,
+      routes:[{name: 'Dashboard'}]
+    })
   };
 
   return (
@@ -38,7 +38,7 @@ const LoginScreen = ({ navigation }: Props) => {
 
       <Header>Autenticação</Header>
 
-      <TextInput
+      <TextInputPP
         label="Email"
         returnKeyType="next"
         value={email.value}
@@ -49,9 +49,10 @@ const LoginScreen = ({ navigation }: Props) => {
         autoCompleteType="email"
         textContentType="emailAddress"
         keyboardType="email-address"
+        left={<TextInput.Icon name="email" />}
       />
 
-      <TextInput
+      <TextInputPP
         label="Password"
         returnKeyType="done"
         value={password.value}
@@ -59,6 +60,7 @@ const LoginScreen = ({ navigation }: Props) => {
         error={!!password.error}
         errorText={password.error}
         secureTextEntry
+        left={<TextInput.Icon name="key" />}
       />
 
       <View style={styles.forgotPassword}>

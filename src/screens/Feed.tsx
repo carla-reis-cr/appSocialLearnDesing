@@ -1,11 +1,15 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import CardPost from '../components/CardPost';
 
 
-export const Feed = () =>{
-    return(
+  const Feed = ({ navigation }) => {
+
+    return (
         <View>
-            <Text>Feed</Text>
+            <CardPost/>
         </View>
     );
-};
+  }
+
+  export default (Feed);

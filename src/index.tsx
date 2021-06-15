@@ -18,11 +18,12 @@ function Routes(){
   return(
   <NavigationContainer>
     <Stack.Navigator>
+    <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Nova Conta" component={RegisterScreen} />
       <Stack.Screen name="Recuperar senha" component={ForgotPasswordScreen} />
-      <Stack.Screen name="Dashboard" component={Dashboard} />
+      
     </Stack.Navigator>
   </NavigationContainer>
   );

@@ -5,7 +5,7 @@ import { theme } from '../core/theme';
 
 type Props = React.ComponentProps<typeof PaperButton>;
 
-const Button = ({ mode, style, children, ...props }: Props) => (
+const Button = ({ mode, icon, style, children, ...props }: Props) => (
   <PaperButton
     style={[
       styles.button,
@@ -14,6 +14,7 @@ const Button = ({ mode, style, children, ...props }: Props) => (
     ]}
     labelStyle={styles.text}
     mode={mode}
+    icon={icon}
     {...props}
   >
     {children}
