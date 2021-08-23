@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Profile  from '../screens/Profile';
 import NewPost  from '../screens/NewPost';
 import Feed  from '../screens/Feed';
+import SearchPost from '../screens/SearchPost';
 
 function Notifications() {
   return (
@@ -37,7 +38,7 @@ export default function BottomTabs() {
       />
       <Tab.Screen
         name="Search"
-        component={NewPost}
+        component={SearchPost}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size }) => (

@@ -10,6 +10,7 @@ import BackButton from '../components/BackButton';
 import { theme } from '../core/theme';
 import { emailValidator, passwordValidator } from '../core/utils';
 import { Navigation } from '../types';
+import api from '../api/api';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState({ value: '', error: '' });
@@ -23,6 +24,8 @@ const LoginScreen = ({ navigation }) => {
       setEmail({ ...email, error: emailError });
       setPassword({ ...password, error: passwordError });
       return;
+    }else{
+      /**signIn();*/
     }
 
     navigation.reset({
@@ -30,6 +33,15 @@ const LoginScreen = ({ navigation }) => {
       routes:[{name: 'Dashboard'}]
     })
   };
+
+  /**const signIn = async ()=> {
+    const response = await api.post('/auth/autenticate', {
+    email: 'carla.cr.reis@gmail.com',
+    password: '$P$BNDZnyK7Ox41pB0msIne3AO/XA6/Wt/'
+    });
+
+
+  };*/
 
   return (
     <Background>

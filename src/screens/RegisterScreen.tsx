@@ -12,6 +12,10 @@ import {
   passwordValidator,
   nameValidator,
 } from '../core/utils';
+import RegisterService from '../api/postApi';
+import { text } from 'express';
+import userApi from '../api/userApi';
+import { Alert } from 'react-native';
 
 type Props = {
   navigation: Navigation;
@@ -21,8 +25,15 @@ const RegisterScreen = ({ navigation }: Props) => {
   const [name, setName] = useState({ value: '', error: '' });
   const [email, setEmail] = useState({ value: '', error: '' });
   const [password, setPassword] = useState({ value: '', error: '' });
+  const [nicename, setNicename] = useState({ value: '', error: '' });
+  const [userLogin, setUserLogin] = useState({ value: '', error: '' });
 
-  const _onSignUpPressed = () => {
+
+  /**Variaveis locais */
+  let error = false;
+
+  /**Validações */
+  const onSignUpPressed = () => {
     const nameError = nameValidator(name.value);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
@@ -31,24 +42,66 @@ const RegisterScreen = ({ navigation }: Props) => {
       setName({ ...name, error: nameError });
       setEmail({ ...email, error: emailError });
       setPassword({ ...password, error: passwordError });
+      error = true;
       return;
     }
-
-    navigation.navigate('Dashboard');
+    return !error;
   };
+
+  const ajustName = (text: any)=>{
+    setName({value: text, error:''});
+    const auxName = text;
+    let aux_nicename = auxName.toLowerCase();
+    aux_nicename = aux_nicename.replace(/\s/g,'');
+    let aux_user_login =auxName.replace(/\s/g,'');
+  
+    setUserLogin({value:aux_user_login, error:''});
+    setNicename({value:aux_nicename, error:''});
+    
+  }
+  const _saveRegister = () =>{
+
+    if(onSignUpPressed()){
+
+      let data = {
+        user_login: userLogin.value,
+        display_name: name.value,
+        user_nicename: nicename.value,
+        user_email: email.value,
+        user_pass:password.value,
+        message:'',
+        status:false,
+      }
+      	//add
+      if(error ==false){
+        userApi.createUser(data)
+        .then((data) => {
+          const TitleAlert = (data.status) ? "Sucesso" : "Erro" ;
+          Alert.alert(TitleAlert, data.message);
+          setEmail({value:'',error:''});
+          setName({value:'',error:''});
+          setPassword({value:'',error:''});
+          setUserLogin({value:'',error:''})
+          setNicename({value:'',error:''})
+          navigation.navigate('Login');
+        })
+        .then((err) => {
+          console.log(err)
+        });
+      }
+      };
+    };
+
 
   return (
     <Background>
-
       <Logo />
-
       <Header>Criar conta</Header>
-
       <TextInput
-        label="Nome"
+        label="Nome Completo"
         returnKeyType="next"
         value={name.value}
-        onChangeText={text => setName({ value: text, error: '' })}
+        onChangeText={text => ajustName(text)}
         error={!!name.error}
         errorText={name.error}
       />
@@ -65,7 +118,7 @@ const RegisterScreen = ({ navigation }: Props) => {
         textContentType="emailAddress"
         keyboardType="email-address"
       />
-
+      
       <TextInput
         label="Senha"
         returnKeyType="done"
@@ -76,7 +129,7 @@ const RegisterScreen = ({ navigation }: Props) => {
         secureTextEntry
       />
 
-      <Button mode="contained" onPress={_onSignUpPressed} style={styles.button}>
+      <Button mode="contained" onPress={_saveRegister} style={styles.button}>
         Sign Up
       </Button>
 

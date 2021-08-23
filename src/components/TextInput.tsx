@@ -14,7 +14,7 @@ const TextInput = ({ errorText, ...props }: Props) => (
       mode="outlined"
       {...props}
     />
-    {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
+    {errorText ? (<Text style={styles.error}>{errorText}</Text> ): null}
   </View>
 );
 

@@ -11,6 +11,8 @@ import {
   Dashboard,
 } from './screens';
 
+import SearchPost from './screens/SearchPost'
+
 const Stack = createStackNavigator();
 
   
@@ -18,11 +20,12 @@ function Routes(){
   return(
   <NavigationContainer>
     <Stack.Navigator>
-    <Stack.Screen name="Dashboard" component={Dashboard} />
-      <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Screen name="Dashboard" component={Dashboard} />  
       <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Nova Conta" component={RegisterScreen} />
       <Stack.Screen name="Recuperar senha" component={ForgotPasswordScreen} />
+      <Stack.Screen name="Pesquisa" component={SearchPost} />
       
     </Stack.Navigator>
   </NavigationContainer>
